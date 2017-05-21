@@ -1,0 +1,91 @@
+<style>
+body{
+	background:#f1f1f1;
+}
+.container{
+	color:#343434;
+	width:540px;
+	float: left;
+	min-height:400px;
+	position: absolute;
+	background:#fbfafa	;
+	left:50%;
+	padding: 30px;
+	top: 200px;
+	margin-bottom:120px;
+	margin-left:-300px;
+	border: 0px;
+	border-radius:10px;
+	box-shadow: 3px 3px 5px #CCC;
+	font-family:Verdana,sans-serif;
+	font-size:15px;
+}
+</style>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+function update(){
+
+    
+	$("#simplex").append("<h4>Fun&ccedil;&atilde;o:</h4><br>")
+	document.getElementById('simplex').innerHtml += "X<input name=\"nx\" type=\"text\" size=\"5px\" />"
+		for (var x=1; x<= parseInt(document.getElementById("nx").value); x++){
+			$("#simplex").append("X"+x+"<input name=\"mainx"+x+"\" type=\"text\" size=\"5px\" />")
+			if (x< (document.getElementById("nx").value)){
+				$("#simplex").append(" + ")
+			}else{
+				$("#simplex").append("<br>")
+			}
+		}
+		$("#simplex").append("<br>")
+		for (var y=1; y<= parseInt(document.getElementById("nf").value); y++){
+			$("#simplex").append("<h4>Restri&ccedil;&atilde;o "+y+":<br></h4>")
+		for (var x=1; x<= parseInt(document.getElementById("nx").value); x++){
+			$("#simplex").append("X"+x+"<input name=\"f"+y+"x"+x+"\" type=\"text\" size=\"5px\" />")
+			if (x< (document.getElementById("nx").value)){
+				$("#simplex").append(" + ")
+			}else{
+				$("#simplex").append(" <select name=\"resultadoorient"+y+"\" id=\"select\" ><option value=\"3\">=</option><option value=\"5\">&le;</option><option value=\"4\">&ge;</option></select> <input name=\"f"+y+"r\" type=\"text\" size=\"5px\" />")
+				$("#simplex").append("<br><br>")
+			}
+		}
+		}
+		document.getElementById("select").disabled = true;
+    document.getElementById("nxsend").value = document.getElementById("nx").value
+    document.getElementById("nfsend").value = document.getElementById("nf").value
+    document.getElementById("selectsend").value = document.getElementById("select").value
+document.getElementById("nx").disabled = true;
+document.getElementById("nf").disabled = true;
+if (parseInt(document.getElementById("nx").value)*110 > 540){
+document.getElementById('container').style.width= parseInt(document.getElementById("nx").value)*110 + 110 +"px"
+document.getElementById('container').style.marginLeft= "-"+(parseInt(document.getElementById("nx").value)*55 + 95)+"px"
+
+}
+$("#simplex").append("<br>Rodar BeB <select name=\"rbb\"><option value=\"S\">Sim</option><option value=\"N\">Nao</option></select>")
+$("#simplex").append("<br>Numero de Threads: <input name=\"nthreads\" type=\"text\" size=\"5px\" />")
+$("#simplex").append("<br>Numero de nos a percorrer (0=Infinito): <input name=\"maxnos\" type=\"text\" size=\"5px\" />")
+$("#simplex").append("<br><br> <input type=\"submit\" value=\"Calcular\"></button>")
+}
+
+</script>
+</head>
+<body>
+<img src="Artboard 1.png" style="height:auto; width:150px; left:50%; margin-left:-75px; position:absolute; top:25px;">
+<div class="container" id="container">
+Entre os dados para o calculo do ponto otimo:<br><br><br>
+<form action="Server" method="post" name="form" id="simplex">
+N Variaveis: <input name="nx" type="text" size="5px"/ id="nx"> <input name="nxsend" type="text" size="0px" style="width:0px; border: 0px;"/ id="nxsend"> 
+
+<div style=" margin-top: -21px;text-align: center;">Orienta&ccedil;&atilde;o <select name="or" id="select" >
+<option value="Max">Max</option>
+<option value="Min">Min</option>
+</select></div><input name="selectsend" type="text" size="0px" style="width:0px; border: 0px;"/ id="selectsend">
+
+
+<div style=" margin-top: -38px;text-align:right;">N Restri&ccedil;&otilde;es: <input name="nf" type="text" size="5px" / id="nf" onkeypress="setTimeout(update, 500)"><input name="nfsend" type="text" size="0px" style="width:0px; border: 0px;"/ id="nfsend" ></div>
+<br>
+</form></div>
+</body>
+
+</html>
